@@ -1974,11 +1974,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\aman.agrawal\\source\\repos\\OracleAQ.Subscriber\\OracleAQ.Subscriber\\OracleAQ.Subscriber.csproj",
+      "projectUniqueName": "C:\\Repos\\OracleAQ.Subscriber\\OracleAQ.Subscriber\\OracleAQ.Subscriber.csproj",
       "projectName": "OracleAQ.Subscriber",
-      "projectPath": "C:\\Users\\aman.agrawal\\source\\repos\\OracleAQ.Subscriber\\OracleAQ.Subscriber\\OracleAQ.Subscriber.csproj",
+      "projectPath": "C:\\Repos\\OracleAQ.Subscriber\\OracleAQ.Subscriber\\OracleAQ.Subscriber.csproj",
       "packagesPath": "C:\\Users\\aman.agrawal\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\aman.agrawal\\source\\repos\\OracleAQ.Subscriber\\OracleAQ.Subscriber\\obj\\",
+      "outputPath": "C:\\Repos\\OracleAQ.Subscriber\\OracleAQ.Subscriber\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -1998,8 +1998,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Users\\aman.agrawal\\source\\repos\\OracleAQ.Subscriber\\OracleQueueAdapter\\OracleQueueAdapter.csproj": {
-              "projectPath": "C:\\Users\\aman.agrawal\\source\\repos\\OracleAQ.Subscriber\\OracleQueueAdapter\\OracleQueueAdapter.csproj"
+            "C:\\Repos\\OracleAQ.Subscriber\\OracleQueueAdapter\\OracleQueueAdapter.csproj": {
+              "projectPath": "C:\\Repos\\OracleAQ.Subscriber\\OracleQueueAdapter\\OracleQueueAdapter.csproj"
             }
           }
         }

@@ -1924,11 +1924,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\aman.agrawal\\source\\repos\\OracleAQ.Subscriber\\OracleQueueAdapter\\OracleQueueAdapter.csproj",
+      "projectUniqueName": "C:\\Repos\\OracleAQ.Subscriber\\OracleQueueAdapter\\OracleQueueAdapter.csproj",
       "projectName": "OracleQueueAdapter",
-      "projectPath": "C:\\Users\\aman.agrawal\\source\\repos\\OracleAQ.Subscriber\\OracleQueueAdapter\\OracleQueueAdapter.csproj",
+      "projectPath": "C:\\Repos\\OracleAQ.Subscriber\\OracleQueueAdapter\\OracleQueueAdapter.csproj",
       "packagesPath": "C:\\Users\\aman.agrawal\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\aman.agrawal\\source\\repos\\OracleAQ.Subscriber\\OracleQueueAdapter\\obj\\",
+      "outputPath": "C:\\Repos\\OracleAQ.Subscriber\\OracleQueueAdapter\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -8,3 +8,13 @@ C:\Users\aman.agrawal\source\repos\OracleAQ.Subscriber\OracleQueueAdapter\obj\De
 C:\Users\aman.agrawal\source\repos\OracleAQ.Subscriber\OracleQueueAdapter\obj\Debug\netstandard2.0\OracleQueueAdapter.dll
 C:\Users\aman.agrawal\source\repos\OracleAQ.Subscriber\OracleQueueAdapter\obj\Debug\netstandard2.0\OracleQueueAdapter.pdb
 C:\Users\aman.agrawal\source\repos\OracleAQ.Subscriber\OracleQueueAdapter\obj\Debug\netstandard2.0\OracleQueueAdapter.csprojAssemblyReference.cache
+C:\Repos\OracleAQ.Subscriber\OracleQueueAdapter\bin\Debug\netstandard2.0\cwallet.sso
+C:\Repos\OracleAQ.Subscriber\OracleQueueAdapter\bin\Debug\netstandard2.0\OracleQueueAdapter.deps.json
+C:\Repos\OracleAQ.Subscriber\OracleQueueAdapter\bin\Debug\netstandard2.0\OracleQueueAdapter.dll
+C:\Repos\OracleAQ.Subscriber\OracleQueueAdapter\bin\Debug\netstandard2.0\OracleQueueAdapter.pdb
+C:\Repos\OracleAQ.Subscriber\OracleQueueAdapter\obj\Debug\netstandard2.0\OracleQueueAdapter.csprojAssemblyReference.cache
+C:\Repos\OracleAQ.Subscriber\OracleQueueAdapter\obj\Debug\netstandard2.0\OracleQueueAdapter.csproj.CoreCompileInputs.cache
+C:\Repos\OracleAQ.Subscriber\OracleQueueAdapter\obj\Debug\netstandard2.0\OracleQueueAdapter.AssemblyInfoInputs.cache
+C:\Repos\OracleAQ.Subscriber\OracleQueueAdapter\obj\Debug\netstandard2.0\OracleQueueAdapter.AssemblyInfo.cs
+C:\Repos\OracleAQ.Subscriber\OracleQueueAdapter\obj\Debug\netstandard2.0\OracleQueueAdapter.dll
+C:\Repos\OracleAQ.Subscriber\OracleQueueAdapter\obj\Debug\netstandard2.0\OracleQueueAdapter.pdb
