@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.645
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OracleAQ.Subscriber", "OracleAQ.Subscriber\OracleAQ.Subscriber.csproj", "{40D186D6-B10C-4D8A-A533-328A787E8342}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OracleQueueAdapter", "OracleQueueAdapter\OracleQueueAdapter.csproj", "{1C5BC900-C893-4AB1-8774-3664D97FF91F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{40D186D6-B10C-4D8A-A533-328A787E8342}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40D186D6-B10C-4D8A-A533-328A787E8342}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40D186D6-B10C-4D8A-A533-328A787E8342}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40D186D6-B10C-4D8A-A533-328A787E8342}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C5BC900-C893-4AB1-8774-3664D97FF91F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C5BC900-C893-4AB1-8774-3664D97FF91F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C5BC900-C893-4AB1-8774-3664D97FF91F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C5BC900-C893-4AB1-8774-3664D97FF91F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2308C36F-BF0F-4655-BA87-F9CF98CA05A5}
+	EndGlobalSection
+EndGlobal
