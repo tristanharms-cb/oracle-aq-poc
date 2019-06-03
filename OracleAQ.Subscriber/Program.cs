@@ -15,9 +15,14 @@ namespace OracleAQ.Subscriber
                 "Data Source =(DESCRIPTION=(ADDRESS=(PROTOCOL=tcps)(HOST=testing-oracle-vanessa-sm.chj0idpp42cr.eu-west-1.rds.amazonaws.com)(PORT=2484))(CONNECT_DATA=(SID=ORCL)));User Id=devvanessa;Password=mordor;Pooling=True",
                 "AA_TEST_QUE");
 
-            q.OnMsgRecvd += (sender, msgArgs) =>
+            q.OnMessageException += (sender, exceptionArgs) =>
             {
-                Console.WriteLine(msgArgs.Message.Content);
+                Console.WriteLine(exceptionArgs.Exception.Message);
+            };
+
+            q.OnMessageReceived += (sender, msgArgs) =>
+            {
+                Console.WriteLine($"Msg received ID: {msgArgs.Message.Id} and Content: {msgArgs.Message.Content}");
 
                 var stock = JsonConvert.DeserializeObject<ProductStock>(msgArgs.Message.Content);
             };
