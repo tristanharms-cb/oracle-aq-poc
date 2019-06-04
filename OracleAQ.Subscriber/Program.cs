@@ -26,11 +26,7 @@ namespace OracleAQ.Subscriber
 
                 try
                 {
-                    var stock = JsonConvert.DeserializeObject<ProductStock>(msgArgs.Message.Content);
-
-                    //throw new ArgumentOutOfRangeException(
-                    //    message: "Failed to update the product store with stock info.",
-                    //    paramName: nameof(ProductStock));
+                    var stock = JsonConvert.DeserializeObject<ProductStock>(msgArgs.Message.Content);                    
 
                     msgArgs.Message.Acknowledge();
                 }
