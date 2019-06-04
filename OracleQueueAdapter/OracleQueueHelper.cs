@@ -1,7 +1,6 @@
 ﻿using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Data;
-using System.Data.Common;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -74,22 +73,22 @@ namespace OracleQueueAdapter
             {
                 await connection.OpenAsync(token);
 
+                var transaction = connection.BeginTransaction();
+
                 var command = connection.CreateCommand();
+
                 command.CommandText = @"declare
                                             dq_options DBMS_AQ.dequeue_options_t;
                                             message_options DBMS_AQ.message_properties_t;
                                             payload raw(4096);
                                             msgid raw(16);
                                         begin
-                                            -- LOCKED is 1
-                                            dq_options.dequeue_mode := 1;
                                             DBMS_AQ.DEQUEUE(
                                                 queue_name => :queue_name,
                                                 dequeue_options => dq_options,
                                                 message_properties => message_options,
                                                 payload => :payload,
                                                 msgid => :msgid);
-                                            COMMIT;
                                         end;";
 
                 // THIS MUST BE THE FIRST PARAM
@@ -109,8 +108,18 @@ namespace OracleQueueAdapter
                             ParameterDirection.Output)
                     { Size = 16 });
 
-                await command.ExecuteNonQueryAsync(token);
-                
+                try
+                {
+                    await command.ExecuteNonQueryAsync(token);
+                    //throw new ArgumentException("Failed");
+                    transaction.Commit();
+                }
+                catch (Exception e)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+
                 var orb = (OracleBinary)command.Parameters["payload"].Value;
 
                 msgContent = Encoding.UTF8.GetString(orb.Value);
