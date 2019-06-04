@@ -24,7 +24,21 @@ namespace OracleAQ.Subscriber
             {
                 Console.WriteLine($"Msg received ID: {msgArgs.Message.Id} and Content: {msgArgs.Message.Content}");
 
-                var stock = JsonConvert.DeserializeObject<ProductStock>(msgArgs.Message.Content);
+                try
+                {
+                    var stock = JsonConvert.DeserializeObject<ProductStock>(msgArgs.Message.Content);
+
+                    //throw new ArgumentOutOfRangeException(
+                    //    message: "Failed to update the product store with stock info.",
+                    //    paramName: nameof(ProductStock));
+
+                    msgArgs.Message.Acknowledge();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Message will be abandoned! {e.Message}");
+                    msgArgs.Message.Abandon();
+                }
             };
 
             q.BeginListening(cts.Token).Wait(cts.Token);

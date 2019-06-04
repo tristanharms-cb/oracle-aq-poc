@@ -1,6 +1,7 @@
 ﻿using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Data;
+using System.Data.Common;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -36,17 +37,20 @@ namespace OracleQueueAdapter
             {
                 try
                 {
-                    var (msg, msgId) = await GetMessage(_connectionString, _queueName, token);
+                    var (msg, msgId, transaction) = 
+                        await GetMessage(
+                            _connectionString, 
+                            _queueName, 
+                            token);
 
                     OnMessageReceived?.Invoke(
                         this,
                         new MessageEventArgs
                         {
-                            Message = new QMessage
-                            {
-                                Content = msg,
-                                Id = msgId
-                            }
+                            Message = new AcknowledgeableMessage(
+                                msg,
+                                msgId,
+                                transaction)
                         });
                 }
                 catch (Exception e)
@@ -61,7 +65,7 @@ namespace OracleQueueAdapter
             }
         }
 
-        private async Task<(string, string)> GetMessage(
+        private async Task<(string, string, IDbTransaction)> GetMessage(
             string connectionString,
             string queueName,
             CancellationToken token)
@@ -69,15 +73,15 @@ namespace OracleQueueAdapter
             var msgContent = string.Empty;
             var msgId = string.Empty;
 
-            using (var connection = new OracleConnection(connectionString))
-            {
-                await connection.OpenAsync(token);
+            var connection = new OracleConnection(connectionString);
 
-                var transaction = connection.BeginTransaction();
+            await connection.OpenAsync(token);
 
-                var command = connection.CreateCommand();
+            var transaction = connection.BeginTransaction();            
 
-                command.CommandText = @"declare
+            var command = connection.CreateCommand();
+
+            command.CommandText = @"declare
                                             dq_options DBMS_AQ.dequeue_options_t;
                                             message_options DBMS_AQ.message_properties_t;
                                             payload raw(4096);
@@ -91,49 +95,47 @@ namespace OracleQueueAdapter
                                                 msgid => :msgid);
                                         end;";
 
-                // THIS MUST BE THE FIRST PARAM
-                command.Parameters.Add("queue_name", queueName);
+            // THIS MUST BE THE FIRST PARAM
+            command.Parameters.Add("queue_name", queueName);
 
-                command.Parameters.Add(
-                    new OracleParameter(
-                            "payload",
-                            OracleDbType.Raw,
-                            ParameterDirection.Output)
-                    { Size = 4096 });
+            command.Parameters.Add(
+                new OracleParameter(
+                        "payload",
+                        OracleDbType.Raw,
+                        ParameterDirection.Output)
+                { Size = 4096 });
 
-                command.Parameters.Add(
-                    new OracleParameter(
-                            "msgid",
-                            OracleDbType.Raw,
-                            ParameterDirection.Output)
-                    { Size = 16 });
+            command.Parameters.Add(
+                new OracleParameter(
+                        "msgid",
+                        OracleDbType.Raw,
+                        ParameterDirection.Output)
+                { Size = 16 });
 
-                try
-                {
-                    await command.ExecuteNonQueryAsync(token);
-                    //throw new ArgumentException("Failed");
-                    transaction.Commit();
-                }
-                catch (Exception e)
-                {
-                    transaction.Rollback();
-                    throw;
-                }
-
-                var orb = (OracleBinary)command.Parameters["payload"].Value;
-
-                msgContent = Encoding.UTF8.GetString(orb.Value);
-
-                msgId = Encoding.UTF8.GetString(((OracleBinary)command.Parameters["msgid"].Value).Value);
+            try
+            {
+                await command.ExecuteNonQueryAsync(token);                
+                //transaction.Commit();
+            }
+            catch (DbException dbException)
+            {
+                transaction.Rollback();
+                throw;
             }
 
-            return (msgContent, msgId);
+            var orb = (OracleBinary)command.Parameters["payload"].Value;
+
+            msgContent = Encoding.UTF8.GetString(orb.Value);
+
+            msgId = Encoding.UTF8.GetString(((OracleBinary)command.Parameters["msgid"].Value).Value);
+
+            return (msgContent, msgId, transaction);
         }
     }
 
     public class MessageEventArgs : EventArgs
     {
-        public QMessage Message { get; set; }
+        public AcknowledgeableMessage Message { get; set; }
     }
 
     public class MessageExceptionArgs : EventArgs
@@ -141,9 +143,32 @@ namespace OracleQueueAdapter
         public Exception Exception { get; set; }
     }
 
-    public class QMessage
+    public class AcknowledgeableMessage
     {
-        public string Content { get; set; }
-        public string Id { get; set; }
+        private readonly IDbTransaction _transaction;
+
+        public AcknowledgeableMessage(
+            string content,
+            string id,
+            IDbTransaction transaction)
+        {
+            Content = content;
+            Id = id;
+            _transaction = transaction;
+        }
+
+        public string Content { get; }
+        public string Id { get; }
+        
+
+        public void Acknowledge()
+        {
+            _transaction?.Commit();
+        }
+
+        public void Abandon()
+        {
+            _transaction?.Rollback();
+        }
     }
 }
