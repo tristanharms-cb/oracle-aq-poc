@@ -47,6 +47,6 @@ namespace OracleAQ.Subscriber
         internal int ProductId { get; set; }
 
         [JsonProperty]
-        internal int Stock { get; set; }
+        internal int StockQuantity { get; set; }
     }
 }
